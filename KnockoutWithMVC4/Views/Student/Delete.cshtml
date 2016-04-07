@@ -1,0 +1,145 @@
+﻿@model KnockoutWithMVC4.Student
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete Student</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Delete</legend>
+    <div class="display-label">
+        Student Id
+    </div>
+    <div class="display-field">
+        <input data-bind="value: StudentId" />
+
+    </div>
+    <div class="display-label">
+        First Name
+    </div>
+    <div class="display-field">
+        <input data-bind="value: FirstName" />
+    </div>
+
+    <div class="display-label">
+        Last Name
+    </div>
+    <div class="display-field">
+        <input data-bind="value: LastName" />
+
+    </div>
+
+    <div class="display-label">
+        Age
+    </div>
+    <div class="display-field">
+        <input data-bind="value: Age" />
+
+    </div>
+
+    <div class="display-label">
+        Gender
+    </div>
+    <div class="display-field">
+        <input data-bind="value: Gender" />
+
+    </div>
+
+    <div class="display-label">
+        Batch
+    </div>
+    <div class="display-field">
+        <input data-bind="value: Batch" />
+
+    </div>
+
+    <div class="display-label">
+        Address
+
+    </div>
+    <div class="display-field">
+        <input data-bind="value: Address" />
+
+    </div>
+
+    <div class="display-label">
+        Class
+    </div>
+    <div class="display-field">
+        <input data-bind="value: Class" />
+
+    </div>
+
+    <div class="display-label">
+        School
+    </div>
+    <div class="display-field">
+        <input data-bind="value: School" />
+
+    </div>
+
+    <div class="display-label">
+        Domicile
+    </div>
+    <div class="display-field">
+        <input data-bind="value: Domicile" />
+
+    </div>
+</fieldset>
+
+<p>
+    <button type="button" data-bind="click: DeleteStudent">Delete Student</button> |
+    <a href="@Url.Action("Index", "Student")">Back to List</a>
+</p>
+
+@section Scripts {
+    <script>
+
+        $(function () {
+            ko.applyBindings(DeleteVM);
+        });
+
+        var initialData = '@Html.Raw(ViewBag.InitialData)'; //get the raw json
+        var parsedJSON = $.parseJSON(initialData); //parse the json client side
+        var DeleteVM = {
+            Domiciles: ko.observableArray(['Delhi', 'Outside Delhi']),
+            Genders: ko.observableArray(['Male', 'Female']),
+            Students: ko.observableArray([]),
+            StudentId: ko.observable(parsedJSON.StudentId),
+            FirstName: ko.observable(parsedJSON.FirstName),
+            LastName: ko.observable(parsedJSON.LastName),
+            Age: ko.observable(parsedJSON.Age),
+            Batch: ko.observable(parsedJSON.Batch),
+            Address: ko.observable(parsedJSON.Address),
+            Class: ko.observable(parsedJSON.Class),
+            School: ko.observable(parsedJSON.School),
+            Domicile: ko.observable(parsedJSON.Domicile),
+            Gender: ko.observable(parsedJSON.Gender),
+            DeleteStudent: function () {
+                $.ajax({
+                    url: '/Student/Delete',
+                    type: 'post',
+                    dataType: 'json',
+                    data: ko.toJSON(this),
+                    contentType: 'application/json',
+                    success: function (result) {
+                    },
+                    error: function (err) {
+                        if (err.responseText == "Creation Failed")
+                        { window.location.href = '/Student/Index/'; }
+                        else {
+                            alert("Status:" + err.responseText);
+                            window.location.href = '/Student/Index/';;
+                        }
+                    },
+                    complete: function () {
+                        window.location.href = '/Student/Index/';
+                    }
+                });
+            }
+        };
+
+    </script>
+}

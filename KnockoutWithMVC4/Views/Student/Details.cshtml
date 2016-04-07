@@ -1,0 +1,78 @@
+﻿@model KnockoutWithMVC4.Student
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Student</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FirstName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FirstName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LastName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LastName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Age)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Age)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Gender)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Gender)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Batch)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Batch)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Address)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Address)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Class)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Class)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.School)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.School)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Domicile)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Domicile)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.StudentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

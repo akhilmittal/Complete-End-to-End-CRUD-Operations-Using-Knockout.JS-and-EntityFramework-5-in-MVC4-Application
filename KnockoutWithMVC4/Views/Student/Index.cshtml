@@ -1,0 +1,69 @@
+﻿@model IEnumerable<KnockoutWithMVC4.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Students List</h2>
+
+<p>
+    <a href="@Url.Action("Create", "Student")" >Create Student</a>
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>
+                Student Id
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Age
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                Batch
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Class
+            </th>
+            <th>
+                School
+            </th>
+            <th>
+                Domicile
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: Students">
+        <tr>
+            <td data-bind="text: StudentId"></td>
+            <td data-bind="text: FirstName"></td>
+            <td data-bind="text: LastName"></td>
+            <td data-bind="text: Age"></td>
+            <td data-bind="text: Gender"></td>
+            <td data-bind="text: Batch"></td>
+            <td data-bind="text: Address"></td>
+            <td data-bind="text: Class"></td>
+            <td data-bind="text: School"></td>
+            <td data-bind="text: Domicile"></td>
+            <td>
+                <a data-bind="click: editStudent">Edit</a>
+                <a data-bind="click: deleteStudent">Delete</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+@section Scripts {
+    @Scripts.Render("~/Scripts/ViewModels/StudentListVM.js")
+}

@@ -1,0 +1,129 @@
+﻿<h2>Edit</h2>
+<fieldset>
+    <legend>Edit Student</legend>
+
+    <div class="editor-label">
+        Student id
+    </div>
+    <div class="editor-field">
+        <input data-bind="value: StudentId" readonly="readonly" />
+    </div>
+
+    <div class="editor-label">
+        First Name
+    </div>
+    <div class="editor-field">
+        <input data-bind="value: FirstName" />
+    </div>
+
+    <div class="editor-label">
+        Last Name
+    </div>
+    <div class="editor-field">
+        <input data-bind="value: LastName" />
+    </div>
+
+    <div class="editor-label">
+        Age
+    </div>
+    <div class="editor-field">
+        <input data-bind="value: Age" />
+    </div>
+
+    <div class="editor-label">
+        Gender
+    </div>
+    <div class="editor-field">
+        <select data-bind="options: Genders, value: Gender, optionsCaption: 'Select Gender...'"></select>
+    </div>
+
+    <div class="editor-label">
+        Batch
+    </div>
+    <div class="editor-field">
+        <input data-bind="value: Batch" />
+    </div>
+
+    <div class="editor-label">
+        Address
+    </div>
+    <div class="editor-field">
+        <input data-bind="value: Address" />
+    </div>
+
+    <div class="editor-label">
+        Class
+    </div>
+    <div class="editor-field">
+        <input data-bind="value: Class" />
+    </div>
+
+    <div class="editor-label">
+        School
+    </div>
+    <div class="editor-field">
+        <input data-bind="value: School" />
+    </div>
+
+    <div class="editor-label">
+        Domicile
+    </div>
+    <div class="editor-field">
+        <select data-bind="options: Domiciles, value: Domicile, optionsCaption: 'Select Domicile...'"></select>
+    </div>
+    <p>
+        <button type="button" data-bind="click: SaveStudent">Save Student To Database</button>
+    </p>
+</fieldset>
+<div>
+    <a href="@Url.Action("Index", "Student")">Back to List</a>
+</div>
+@section Scripts {
+    <script>
+
+        $(function () {
+            ko.applyBindings(EditVM);
+        });
+
+        var initialData = '@Html.Raw(ViewBag.InitialData)'; //get the raw json
+        var parsedJSON = $.parseJSON(initialData); //parse the json client side
+        var EditVM = {
+            Domiciles: ko.observableArray(['Delhi', 'Outside Delhi']),
+            Genders: ko.observableArray(['Male', 'Female']),
+            Students: ko.observableArray([]),
+            StudentId: ko.observable(parsedJSON.StudentId),
+            FirstName: ko.observable(parsedJSON.FirstName),
+            LastName: ko.observable(parsedJSON.LastName),
+            Age: ko.observable(parsedJSON.Age),
+            Batch: ko.observable(parsedJSON.Batch),
+            Address: ko.observable(parsedJSON.Address),
+            Class: ko.observable(parsedJSON.Class),
+            School: ko.observable(parsedJSON.School),
+            Domicile: ko.observable(parsedJSON.Domicile),
+            Gender: ko.observable(parsedJSON.Gender),
+            SaveStudent: function () {
+                $.ajax({
+                    url: '/Student/Edit',
+                    type: 'post',
+                    dataType: 'json',
+                    data: ko.toJSON(this),
+                    contentType: 'application/json',
+                    success: function (result) {
+                    },
+                    error: function (err) {
+                        if (err.responseText == "Creation Failed")
+                        { window.location.href = '/Student/Index/'; }
+                        else {
+                            alert("Status:" + err.responseText);
+                            window.location.href = '/Student/Index/';;
+                        }
+                    },
+                    complete: function () {
+                        window.location.href = '/Student/Index/';
+                    }
+                });
+            }
+        };
+
+    </script>
+}
